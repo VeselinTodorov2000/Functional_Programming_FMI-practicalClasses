@@ -1,3 +1,4 @@
+--Седмица 1
 --Задача 1.​ Да се дефинира функция ​inside a b x​, която проверява дали числото x принадлежи на интервала [a, b] 
 inside::Integer -> Integer -> Integer -> Bool
 inside a b x = a <= x && x <= b
