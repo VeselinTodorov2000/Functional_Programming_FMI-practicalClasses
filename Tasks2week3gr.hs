@@ -1,3 +1,4 @@
+--Завършено
 --Задача 1.​ Да се дефинира функция ​countDigits​, която намира броя на цифрите на дадено естествено число. Да се напише и итеративно решение. 
 countDigitsRec::Integer -> Integer
 countDigitsRec n = if(n==0) then 0 else (  1+countDigitsRec(div n 10))
