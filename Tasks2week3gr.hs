@@ -38,19 +38,42 @@ helperAscender number lastDigit = if(number < 10)
 
 -- Задача 5. Да се дефинира предикат isPrime, който проверява дали дадено естествено число е просто
 isPrime::Integer -> Bool
-isPrime 1 = False
-isPrime n = helperPrime 2
-            where
-                helperPrime currentNumber
-                    mod(number currentNumber) == 0      = False
-                    mod(number currentNumber) == 1      = True
-                    number == currentNumber             = True
+isPrime n = (countDels n 1 0) == 2
 
+countDels::Integer -> Integer -> Integer -> Integer
+countDels number currentDenominator counterDenominators = if(number == currentDenominator) 
+                                                                then (counterDenominators+1)
+                                                                else 
+                                                                    if((number `mod` currentDenominator) == 0)
+                                                                        then (countDels number (currentDenominator+1) (counterDenominators+1))
+                                                                        else (countDels number (currentDenominator+1) (counterDenominators))
 -- Задача 6. Да се дефинира функция isPerfect, която проверява дали дадено число е равно на сумата от делителите си
 isPerfect::Integer -> Bool
-isPerfect n = n == sumDels n
+isPerfect n = (n == sumDels n)
 
 sumDels::Integer -> Integer
+sumDels n = helperPerfect n 1 0
+
+helperPerfect::Integer -> Integer -> Integer -> Integer
+helperPerfect n denominator sum = if(denominator==n) 
+                                        then sum 
+                                        else 
+                                            if((n `mod` denominator) == 0)
+                                                then (helperPerfect n (denominator+1) (sum+denominator))
+                                                else (helperPerfect n (denominator+1) sum)
+
+--Задача 7. ​Да се дефинира функция ​reverseNumber​, която по дадено естествено число n намира числото, записано със същите цифри, но в обратен ред. 
+reverseNumber::Integer -> Integer
+reverseNumber n = helperReverse n 0
+
+helperReverse num reversed = if(num == 0) 
+                                then reversed
+                                else (helperReverse (num `div` 10) (reversed*10 + (num `mod` 10)))
+
+--Задача 8. ​Да се дефинира функция ​isPalindrome​, която проверява дали дадено число е палиндром. 
+isPalindrome::Integer -> Bool
+isPalindrome n = n == reverseNumber n
+
 main::IO()
 main = do
-    print(isAscending 1324)
+    print(isPalindrome 3223)
